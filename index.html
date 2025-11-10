@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mines Prediction Tool — Money Hacks Rwanda</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+<link rel="canonical" href="https://moneyhacksrwanda.blogspot.com/" />
+<meta name="description" content="Mines Prediction Tool by Money Hacks Rwanda — practice and learn Mines strategies with deterministic seed-based predictions." />
+<meta name="robots" content="index,follow" />
+<!-- OpenGraph -->
+<meta property="og:title" content="Mines Prediction Tool — Money Hacks Rwanda" />
+<meta property="og:description" content="Practice Mines predictions with deterministic seeds. Created by Money Hacks Rwanda." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://moneyhacksrwanda.blogspot.com/" />
+<meta property="og:site_name" content="Money Hacks Rwanda" />
+<meta property="og:image" content="" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Mines Prediction Tool — Money Hacks Rwanda" />
+<meta name="twitter:description" content="Practice Mines predictions with deterministic seeds. Created by Money Hacks Rwanda." />
+
+<!-- Structured data (JSON-LD) -->
+<script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "WebApplication", "name": "Mines Prediction Tool", "url": "https://moneyhacksrwanda.blogspot.com/", "author": {"@type":"Organization","name":"Money Hacks Rwanda"}, "description": "Seed-driven Mines prediction practice tool." }
+</script>
+
+<style>
+/* ---------- Theme variables (customize these) ---------- */
+:root{
+  --primary-blue: #0080ff; /* <--- edit here */
+  --white: #ffffff;       /* <--- edit here */
+  --dark-gray: #363a45;   /* <--- edit here */
+
+  --bg1: rgba(10,10,20,0.6);
+  --glass: rgba(255,255,255,0.06);
+  --accent: var(--primary-blue);
+  --danger: #ff6b6b;
+  --glass-border: rgba(255,255,255,0.08);
+  --tile-size: min(64px, 14vw);
+  --soft-glow: 0 8px 30px rgba(0,0,0,0.5);
+  --glass-blur: 10px;
+  --ui-radius: 14px;
+}
+
+/* light/dark classes */
+.light { --bg1: linear-gradient(135deg,#e8f2ff 0%, #f6faff 100%); --glass: rgba(255,255,255,0.6); --glass-border: rgba(0,0,0,0.06); --tile-color: rgba(255,255,255,0.9); --text-color: var(--dark-gray); }
+.dark  { --bg1: radial-gradient(1200px 600px at 10% 10%, #07122a 0%, #020515 40%, #070015 100%); --glass: rgba(255,255,255,0.03); --tile-color: rgba(255,255,255,0.06); --text-color: #e8f8ff; }
+
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg1); color:var(--text-color,#e8f8ff);}
+
+/* Animated background subtle movement */
+body::before{ content:""; position:fixed; inset:0; background: linear-gradient(120deg, rgba(0,128,255,0.04), rgba(126,179,249,0.02)); z-index:0; pointer-events:none; animation: bgMove 18s linear infinite; mix-blend-mode:screen; }
+@keyframes bgMove{0%{transform:translate3d(0,0,0) rotate(0deg);}50%{transform:translate3d(10%,5%,0) rotate(1deg);}100%{transform:translate3d(0,0,0) rotate(0deg);} }
+
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;z-index:1;position:relative}
+.panel{width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:22px;box-shadow: 0 10px 30px rgba(0,0,0,0.35);border:1px solid var(--glass-border);backdrop-filter: blur(var(--glass-blur));}
+.header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:48px;height:48px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:20px;background:linear-gradient(135deg,var(--primary-blue),#66ccff);color:var(--white);box-shadow: 0 6px 20px rgba(100,240,200,0.08);} 
+.title h1{margin:0;font-size:18px}
+.title p{margin:0;font-size:12px;opacity:0.85}
+.controls{display:flex;gap:10px;align-items:center}
+.platform-display{font-size:14px;padding:8px 12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);display:flex;gap:8px;align-items:center}
+select,input[type="text"]{padding:10px 12px;border-radius:10px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text-color);outline:none;font-size:14px;min-width:160px}
+.seed-input{display:flex;gap:8px;align-items:center}
+.buttons{display:flex;gap:10px;align-items:center}
+button.primary{background:linear-gradient(90deg,var(--primary-blue),#66ccff);border:none;padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(102,204,255,0.12);transition:transform .16s ease, box-shadow .16s ease}
+button.primary:active{ transform:translateY(2px) scale(.995); }
+button.ghost{background:transparent;border:1px solid var(--glass-border);color:var(--text-color);padding:9px 12px;border-radius:12px;cursor:pointer}
+
+.game-wrap{display:flex;gap:20px;align-items:flex-start;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.left{flex:1 1 380px;display:flex;align-items:center;justify-content:center}
+.board{width:calc(var(--tile-size) * 5 + 28px);padding:14px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);display:grid;grid-template-columns: repeat(5, 1fr);grid-auto-rows: var(--tile-size);gap:6px;justify-items:center;align-items:center;box-shadow:0 18px 50px rgba(0,0,0,0.35)}
+.tile{width:100%;height:100%;border-radius:10px;background:var(--tile-color, rgba(255,255,255,0.04));display:grid;place-items:center;font-size:20px;cursor:pointer;user-select:none;transition: transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease, background .18s ease;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:visible}
+.tile:hover{ transform:translateY(-6px) scale(1.01); z-index:5}
+.tile.revealed{ transform:translateY(0) scale(1); cursor:default }
+.tile .symbol{ opacity:0; transform:translateY(6px) scale(.98); transition: opacity .28s ease .05s, transform .28s cubic-bezier(.2,.9,.3,1) .05s }
+.tile.revealed .symbol{ opacity:1; transform:translateY(0) scale(1) }
+.tile.safe{box-shadow: 0 6px 30px rgba(110,255,200,0.06), 0 0 18px rgba(120,255,180,0.06) inset;border:1px solid rgba(120,255,180,0.08)}
+.tile.safe .symbol{font-size:22px;color:#b9fff0;text-shadow: 0 4px 20px rgba(120,255,180,0.28)}
+.tile.safe.glow{animation: safeGlow 1.6s ease-in-out infinite}
+@keyframes safeGlow{0%{ box-shadow: 0 8px 26px rgba(120,255,180,0.06), 0 0 14px rgba(120,255,180,0.08) inset; filter:blur(0); transform: translateY(0);}50%{ box-shadow: 0 14px 40px rgba(120,255,180,0.10), 0 0 30px rgba(120,255,180,0.12) inset; transform: translateY(-2px); }100%{ box-shadow: 0 8px 26px rgba(120,255,180,0.06), 0 0 14px rgba(120,255,180,0.08) inset; transform: translateY(0); }}
+.tile.bomb .symbol{color: #ffd6d6;text-shadow: 0 3px 8px rgba(255,100,100,0.12);font-size:20px}
+.tile.bomb.red{border:1px solid rgba(255,110,110,0.08)}
+.pop { animation: popReveal .28s cubic-bezier(.2,.9,.3,1) }
+@keyframes popReveal{0%{ transform:scale(.86) rotateX(14deg) translateY(6px); opacity:0; }60%{ transform:scale(1.04) rotateX(0) translateY(-4px); opacity:1; }100%{ transform:scale(1) translateY(0); }}
+.right{width:320px}
+.panel-box{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid var(--glass-border);display:flex;flex-direction:column;gap:12px}
+.hint{ font-size:13px; opacity:0.9 }
+.join-row{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.join-btn{flex:1 1 0;padding:10px 12px;border-radius:12px;border:none;cursor:pointer;display:flex;gap:8px;align-items:center;justify-content:center;font-weight:700;color:white;transform:translateZ(0);transition: transform .14s ease, box-shadow .14s ease}
+.join-btn:active{ transform:translateY(2px); }
+.telegram{background: linear-gradient(90deg,#2aa5e0,#0c7cd5);box-shadow: 0 8px 30px rgba(20,120,200,0.14)}
+.youtube{background: linear-gradient(90deg,#ff3b3b,#cc0000);box-shadow: 0 8px 30px rgba(200,30,30,0.12)}
+.join-btn svg{ width:18px;height:18px }
+.footer{margin-top:16px;text-align:center;font-size:13px;opacity:0.95;padding-top:8px}
+@media (max-width:900px){.game-wrap{flex-direction:column;align-items:center} .right{width:100%;max-width:420px} .board{width: calc(var(--tile-size) * 5 + 10px)}}
+@media (max-width:420px){:root{ --tile-size: calc(min(56px, 16vw)); }}
+button:focus, select:focus, input:focus { box-shadow: 0 6px 18px rgba(102,204,255,0.08); outline:none; }
+.stats{ font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+.stat-pill{ padding:6px 10px; border-radius:999px; border:1px solid var(--glass-border); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01)); font-weight:600 }
+
+/* Accessibility: visible focus ring for keyboard users */
+:focus{ outline: 3px solid rgba(0,128,255,0.14); outline-offset:2px }
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+</style>
+</head>
+<body class="dark">
+<a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto; width:1px; height:1px; overflow:hidden;">Skip to content</a>
+<div class="app">
+  <main id="main" class="panel" role="main" aria-labelledby="appTitle">
+
+    <header class="header" role="banner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">MHR</div>
+        <div class="title">
+          <h1 id="appTitle">Mines Prediction Tool</h1>
+          <p>Predict — Practice — Learn ⚡</p>
+        </div>
+      </div>
+
+      <div class="controls" role="navigation" aria-label="Game controls">
+        <div class="platform-display" id="platformDisplay">
+          Platform: <strong id="platformName" style="margin-left:8px">Stake</strong>
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <label for="platform" class="sr-only" style="display:none">Platform</label>
+          <select id="platform" title="Choose platform">
+            <option value="stake">A) Stake</option>
+            <option value="1win">B) 1win</option>
+            <option value="betpawa">C) Betpawa</option>
+            <option value="winner">D) winner</option>
+            <option value="1x-bet">E) 1x-bet</option>
+          </select>
+
+          <div class="seed-input">
+            <input id="seed" type="text" placeholder="Enter Your Seeds" aria-label="Enter Your Seeds" />
+          </div>
+
+          <button class="primary" id="predictBtn">Predict Safe Mines</button>
+          <button class="ghost" id="resetBtn" title="Reset Game">Reset Game</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="game-wrap" aria-label="Game area">
+      <div class="left">
+        <div class="board" id="board" role="grid" aria-label="Mines grid">
+          <!-- 25 tiles will be injected here -->
+        </div>
+      </div>
+
+      <aside class="right" role="complementary" aria-label="Sidebar">
+        <div class="panel-box">
+          <div class="stats" aria-hidden="false">
+            <div class="stat-pill">Grid: 5×5</div>
+            <div class="stat-pill">Safe: 5 💎</div>
+            <div class="stat-pill">Mines: 20 💣</div>
+          </div>
+          <div class="hint">Selected platform: <span id="platformTopLink"></span></div>
+          <div class="platform-links">
+            <small>Available platform links (opens in new tab):</small>
+            <ul style="margin:6px 0 0 18px;padding:0 0 0 0;">
+              <li><a href="https://stake.com/casino/games/mines" target="_blank" rel="noopener">Stake</a></li>
+              <li><a href="https://1win.com/casino/play/v_1winGames:Mines_classic" target="_blank" rel="noopener">1win</a></li>
+              <li><a href="https://www.betpawa.rw/casino?favourites=true&gameId=24122&redirectBack=/casino?favourites=true" target="_blank" rel="noopener">Betpawa</a></li>
+              <li><a href="https://winner.rw/virtual/search/mines" target="_blank" rel="noopener">winner</a></li>
+              <li><a href="https://1x-bet.mobi/en/my-casino?game=64484" target="_blank" rel="noopener">1x-bet</a></li>
+            </ul>
+          </div>
+
+          <div style="display:flex; gap:8px; align-items:center; justify-content:space-between;">
+            <div style="flex:1">
+              <label style="font-size:12px; display:block; opacity:0.85;">Theme</label>
+              <div style="display:flex; gap:8px; margin-top:6px;">
+                <button class="ghost" id="lightBtn">Light</button>
+                <button class="ghost" id="darkBtn">Dark</button>
+              </div>
+            </div>
+
+            <div style="flex:1">
+              <label style="font-size:12px; display:block; opacity:0.85;">Options</label>
+              <div style="display:flex; gap:8px; margin-top:6px;">
+                <button class="ghost" id="randomSeedBtn" title="Generate random seed">Randomize Seed</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="join-row" style="margin-top:6px;">
+            <a class="join-btn telegram" href="https://t.me/MoneyhacksRwanda" target="_blank" rel="noopener" aria-label="Join Telegram">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22 4L2 12.2L7.2 15.1L9.7 21L10.9 15.1L22 4Z" fill="white"/></svg>
+              Join Telegram
+            </a>
+
+            <a class="join-btn youtube" href="https://www.youtube.com/@moneyhacksrwanda" target="_blank" rel="noopener" aria-label="Join YouTube">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 15l5.2-3L10 9v6z" fill="white"/><rect x="2" y="5" width="20" height="14" rx="4" fill="white" opacity="0.12"/></svg>
+              Join YouTube
+            </a>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-top:8px; align-items:center;">
+            <button class="ghost" id="revealAllBtn" title="Reveal all for testing">Reveal All</button>
+            <button class="ghost" id="hideAllBtn" title="Hide all">Hide All</button>
+          </div>
+
+          <div style="font-size:12px; opacity:0.85; margin-top:4px;">Tip: Enter a seed to make predictions deterministic — use the Randomize button for a quick seed.</div>
+        </div>
+
+        <div class="footer">⚡ Created by MONEY HACKS RWANDA</div>
+      </aside>
+    </section>
+
+  </main>
+</div>
+
+<!-- Minimal JS: deferred and small for performance -->
+<script defer>
+// Seeded RNG helpers (xmur3 + mulberry32) - tiny and deterministic
+function xmur3(str){for(var i=0,h=1779033703^str.length;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=(h<<13)|(h>>>19);}return function(){h=Math.imul(h^(h>>>16),2246822507);h=Math.imul(h^(h>>>13),3266489909);return(h^=h>>>16)>>>0}}
+function mulberry32(a){return function(){var t=a+=0x6D2B79F5;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
+
+const boardEl=document.getElementById('board'), predictBtn=document.getElementById('predictBtn'), resetBtn=document.getElementById('resetBtn'), platformSelect=document.getElementById('platform'), platformName=document.getElementById('platformName'), platformTopLink=document.getElementById('platformTopLink'), seedInput=document.getElementById('seed'), randomSeedBtn=document.getElementById('randomSeedBtn'), lightBtn=document.getElementById('lightBtn'), darkBtn=document.getElementById('darkBtn'), revealAllBtn=document.getElementById('revealAllBtn'), hideAllBtn=document.getElementById('hideAllBtn');
+const platforms={ 'stake':{name:'Stake',url:'https://stake.com/casino/games/mines'}, '1win':{name:'1win',url:'https://1win.com/casino/play/v_1winGames:Mines_classic'}, 'betpawa':{name:'Betpawa',url:'https://www.betpawa.rw/casino?favourites=true&gameId=24122&redirectBack=/casino?favourites=true'}, 'winner':{name:'winner',url:'https://winner.rw/virtual/search/mines'}, '1x-bet':{name:'1x-bet',url:'https://1x-bet.mobi/en/my-casino?game=64484'} };
+const TILE_COUNT=25; let tiles=[], currentState={revealed:false,safeIndices:[],bombIndices:[]};
+function createBoard(){boardEl.innerHTML='';tiles=[];for(let i=0;i<TILE_COUNT;i++){const tile=document.createElement('button');tile.className='tile';tile.type='button';tile.setAttribute('data-index',i);tile.setAttribute('aria-label','Hidden tile');tile.innerHTML=`<span class="symbol" aria-hidden="true">🔒</span>`;tile.addEventListener('click',()=>{ if(!currentState.revealed) return; revealTile(i); });boardEl.appendChild(tile);tiles.push(tile);} }
+function deterministicPick(seedStr){const seedFn=xmur3(String(seedStr||''));const seed=seedFn();const rand=mulberry32(seed);const arr=Array.from({length:TILE_COUNT},(_,i)=>i);for(let i=arr.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}const safe=arr.slice(0,5).sort((a,b)=>a-b);const bombs=arr.slice(5);return{safe,bombs};}
+function revealPrediction(seedStr){const result=deterministicPick(seedStr);currentState.safeIndices=result.safe;currentState.bombIndices=result.bombs;currentState.revealed=true;tiles.forEach((tile,idx)=>{tile.classList.remove('safe','bomb','revealed','pop','glow','red');tile.querySelector('.symbol').textContent='🔒';setTimeout(()=>{const isSafe=result.safe.includes(idx);tile.classList.add('revealed');tile.classList.add(isSafe?'safe':'bomb');tile.classList.add('pop');const symbolSpan=tile.querySelector('.symbol');symbolSpan.textContent=isSafe?'💎':'💣';if(isSafe){tile.classList.add('glow')}else{tile.classList.add('red')}}, idx*28 + (Math.random()*80));});}
+function revealTile(idx){const tile=tiles[idx];if(!tile) return; if(tile.classList.contains('revealed')) return; tile.classList.add('revealed','pop'); const isSafe=currentState.safeIndices.includes(idx); tile.classList.add(isSafe?'safe':'bomb'); tile.querySelector('.symbol').textContent=isSafe?'💎':'💣'; if(isSafe) tile.classList.add('glow'); else tile.classList.add('red');}
+function resetBoard(){currentState={revealed:false,safeIndices:[],bombIndices:[]};tiles.forEach(t=>{t.className='tile';const s=t.querySelector('.symbol');if(s) s.textContent='🔒';});}
+function makeRandomSeed(){const adjectives=["neo","alpha","lucky","fast","blue","silent","iron","gold","prime","swift","shadow","nova"];const nouns=["wave","pulse","storm","seed","spark","orbit","node","flux","echo","matrix","quark","rider"];const a=adjectives[Math.floor(Math.random()*adjectives.length)];const b=nouns[Math.floor(Math.random()*nouns.length)];const n=Math.floor(Math.random()*9999);return`${a}-${b}-${n}`}
+function updatePlatform(){const key=platformSelect.value;const p=platforms[key]||platforms['stake'];platformName.textContent=p.name;platformTopLink.innerHTML=`<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline">${p.name}</a>`}
+predictBtn.addEventListener('click',()=>{const seed=seedInput.value.trim()||makeRandomSeed();seedInput.value=seed;revealPrediction(seed);});resetBtn.addEventListener('click',()=>{resetBoard();});platformSelect.addEventListener('change',updatePlatform);randomSeedBtn.addEventListener('click',()=>{seedInput.value=makeRandomSeed();});lightBtn.addEventListener('click',()=>{document.body.classList.remove('dark');document.body.classList.add('light');});darkBtn.addEventListener('click',()=>{document.body.classList.remove('light');document.body.classList.add('dark');});revealAllBtn.addEventListener('click',()=>{const seed=seedInput.value.trim()||makeRandomSeed();seedInput.value=seed;revealPrediction(seed);});hideAllBtn.addEventListener('click',()=>resetBoard());createBoard();updatePlatform();seedInput.addEventListener('keydown',(e)=>{if(e.key==='Enter'){predictBtn.click();}});resetBtn.addEventListener('dblclick',()=>{seedInput.value=makeRandomSeed();});document.addEventListener('keydown',(e)=>{if(e.key==='Enter'&&document.activeElement.tagName==='BUTTON') e.preventDefault();});
+</script>
+</body>
+</html>
